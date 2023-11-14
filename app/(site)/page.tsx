@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import AuthForm from "./components/AuthForm";
 import { useState } from "react";
+import AuthForm from "./components/AuthForm";
 
 type Varient = "Sign Up" | "Sign In";
 

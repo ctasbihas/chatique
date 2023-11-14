@@ -3,7 +3,7 @@
 import Button from "@/app/components/Button";
 import Input from "@/app/components/inputs/Input";
 import { useCallback, useState } from "react";
-import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import SocialAuthButton from "./SocialAuthButton";
 
 export default function AuthForm({ varient, setVarient }: any) {

@@ -1,4 +1,4 @@
-import { BsGoogle, BsGithub } from "react-icons/bs";
+import { BsGithub, BsGoogle } from "react-icons/bs";
 
 interface SocialAuthButtonProps {
 	socialAction: string;
