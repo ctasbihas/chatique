@@ -2,8 +2,11 @@
 
 import Button from "@/app/components/Button";
 import Input from "@/app/components/inputs/Input";
+import axios from "axios";
+import { signIn } from "next-auth/react";
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import SocialAuthButton from "./SocialAuthButton";
 
 export default function AuthForm({ varient, setVarient }: any) {
@@ -33,16 +36,45 @@ export default function AuthForm({ varient, setVarient }: any) {
 		setIsLoading(true);
 
 		if (varient === "Sign Up") {
-			console.log("registered");
-		} else {
-			console.log("logged in");
+			axios
+				.post("/api/register", data)
+				.catch(() => toast.error("Something went wrong!"))
+				.finally(() => setIsLoading(false));
+		}
+		if (varient === "Sign In") {
+			signIn("credentials", {
+				...data,
+				redirect: false,
+			})
+				.then((callback) => {
+					console.log(callback);
+					if (callback?.error) {
+						toast.error(callback.error);
+					}
+					if (callback?.ok && !callback?.error) {
+						toast.success("Logged in");
+					}
+				})
+				.finally(() => setIsLoading(false));
 		}
 	};
 
 	const socialAction = (action: string) => {
 		setIsLoading(true);
 
-		console.log("action");
+		signIn(action, {
+			redirect: false,
+		})
+			.then((callback) => {
+				console.log(callback);
+				if (callback?.error) {
+					toast.error(callback.error);
+				}
+				if (callback?.ok && !callback?.error) {
+					toast.success("Logged in");
+				}
+			})
+			.finally(() => setIsLoading(false));
 	};
 
 	return (
@@ -107,10 +139,12 @@ export default function AuthForm({ varient, setVarient }: any) {
 						<SocialAuthButton
 							socialAction="github"
 							onClick={() => socialAction("github")}
+							disabled={isLoading}
 						/>
 						<SocialAuthButton
 							socialAction="google"
 							onClick={() => socialAction("google")}
+							disabled={isLoading}
 						/>
 					</div>
 				</div>
