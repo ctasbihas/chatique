@@ -33,7 +33,6 @@ const DesktopItem: React.FC<DesktopItemProps> = ({
 				onClick={handleClick}
 			>
 				<Icon className="w-6 h-6 shrink-0" />
-				<span className="sr-only">{label}</span>
 			</Link>
 		</li>
 	);
