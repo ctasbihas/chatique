@@ -54,7 +54,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
 		<div
 			onClick={handleClick}
 			className={clsx(
-				"w-full relative flex items-center space-x-3 hover:bg-neutral-100 p-3 rounded-lg transition cursor-pointer",
+				"w-full relative flex items-center space-x-3 hover:bg-neutral-100 px-3 py-2 rounded-lg transition cursor-pointer",
 				selected ? "bg-neutral-100" : "bg-white"
 			)}
 		>
@@ -63,7 +63,13 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
 				<div className="focus:outline-none">
 					<div className="flex justify-between items-center mb-1">
 						<p className="text-md font-medium text-gray-900">
-							{data.name || otherUser.name}
+							{data.name?.slice(0, 13) ||
+								otherUser.name?.slice(0, 13)}
+
+							{(data.name && data.name?.length > 20 && "...") ||
+								(otherUser.name &&
+									otherUser.name?.length > 20 &&
+									"...")}
 						</p>
 						{lastMessage?.createdAt && (
 							<p className="text-xs text-gray-400 font-light">

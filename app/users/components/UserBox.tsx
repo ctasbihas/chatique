@@ -37,7 +37,8 @@ const UserBox: React.FC<UserBoxProps> = ({ user }) => {
 				<div className="focus:outline-none">
 					<div className="flex items-center justify-between mb-1">
 						<p className="text-sm font-medium text-gray-900">
-							{user.name}
+							{user.name?.slice(0, 20)}
+							{user.name && user.name?.length > 20 && "..."}
 						</p>
 					</div>
 				</div>
